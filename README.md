@@ -1,4 +1,4 @@
-<![CDATA[# 🔑 RedKey DAO
+# 🔑 RedKey DAO
 
 **Decentralized Investment & Lending Protocol Governed by Community Consensus**
 
@@ -247,4 +247,3 @@ This project is open source and available under the [MIT License](LICENSE).
 <p align="center">
   Built with ❤️ by the <strong>RedKey DAO</strong> community on <strong>Avalanche</strong>
 </p>
-]]>
