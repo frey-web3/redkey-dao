@@ -238,7 +238,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
-- **Live App**: [RedKey DAO](https://finigo.vercel.app/dao)
+- **Live App**: [RedKey DAO](https://finigo.xyz/dao)
 - **Avalanche**: [avax.network](https://www.avax.network/)
 - **Thirdweb**: [thirdweb.com](https://thirdweb.com/)
 
