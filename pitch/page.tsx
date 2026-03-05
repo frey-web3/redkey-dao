@@ -98,6 +98,10 @@ export default function PitchPage() {
                                 <h3 className="text-white font-bold mb-2">3. Zero Gas Mechanics</h3>
                                 <p className="text-xs text-gray-400 leading-relaxed">Interact with core mechanics—creating proposals, voting, and funding loans—instantly without needing testnet AVAX or paying gas fees, proving the UI/UX architecture beforehand.</p>
                             </div>
+                            <div className="border-l-2 border-red-500/20 pl-4">
+                                <h3 className="text-white font-bold mb-2">4. Lifecycle Tracking</h3>
+                                <p className="text-xs text-gray-400 leading-relaxed">Demonstrates pre-funding due diligence via the <strong>Signal</strong> analytics layer (Alchemy API), and post-funding transparency via the <strong>Portfolio</strong> dashboard, closing the accountability loop.</p>
+                            </div>
                         </div>
                     </div>
                 </motion.div>

@@ -88,7 +88,7 @@ export default function SignalPage() {
 
             <DaoNavbar />
 
-            <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-8">
+            <main className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 py-8">
                 {/* Header */}
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
                     <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
@@ -172,66 +172,81 @@ export default function SignalPage() {
                             transition={{ delay: 0.05 * idx }}
                             className="group bg-[#0d0d0d] border border-red-500/[0.06] hover:border-red-500/[0.15] transition-all"
                         >
-                            <div className="flex items-center justify-between px-5 py-4">
-                                <div className="flex items-center gap-4 min-w-0 flex-1">
-                                    {/* Index */}
-                                    <div className="text-[10px] font-mono text-gray-700 font-bold w-6">
-                                        {String(idx + 1).padStart(2, '0')}
-                                    </div>
-
-                                    {/* Avatar */}
-                                    <div className="w-9 h-9 border border-red-500/[0.12] bg-[#111] flex items-center justify-center shrink-0">
-                                        <span className="text-[10px] font-bold text-red-400 font-mono">
-                                            {wallet.label.charAt(0).toUpperCase()}
-                                        </span>
-                                    </div>
-
-                                    {/* Info */}
-                                    <div className="min-w-0 flex-1">
-                                        <div className="flex items-center gap-2 mb-0.5">
-                                            <span className="text-sm text-white font-medium truncate">{wallet.label}</span>
-                                            <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 border ${TAG_COLORS[wallet.tag] || TAG_COLORS.Custom}`}>
-                                                {wallet.tag}
+                            <div className="px-4 sm:px-5 py-3 sm:py-4">
+                                {/* Desktop layout */}
+                                <div className="hidden sm:flex items-center justify-between">
+                                    <div className="flex items-center gap-4 min-w-0 flex-1">
+                                        <div className="text-[10px] font-mono text-gray-700 font-bold w-6">
+                                            {String(idx + 1).padStart(2, '0')}
+                                        </div>
+                                        <div className="w-9 h-9 border border-red-500/[0.12] bg-[#111] flex items-center justify-center shrink-0">
+                                            <span className="text-[10px] font-bold text-red-400 font-mono">
+                                                {wallet.label.charAt(0).toUpperCase()}
                                             </span>
                                         </div>
-                                        <div className="text-[10px] text-gray-600 font-mono truncate">
-                                            {wallet.address}
+                                        <div className="min-w-0 flex-1">
+                                            <div className="flex items-center gap-2 mb-0.5">
+                                                <span className="text-sm text-white font-medium truncate">{wallet.label}</span>
+                                                <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 border ${TAG_COLORS[wallet.tag] || TAG_COLORS.Custom}`}>
+                                                    {wallet.tag}
+                                                </span>
+                                            </div>
+                                            <div className="text-[10px] text-gray-600 font-mono truncate">
+                                                {wallet.address}
+                                            </div>
                                         </div>
+                                    </div>
+                                    <div className="flex items-center gap-1 ml-4 shrink-0">
+                                        <button onClick={() => handleCopy(wallet.address, idx)} className="p-2 text-gray-700 hover:text-gray-400 transition-colors" title="Copy address">
+                                            {copiedIdx === idx ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
+                                        </button>
+                                        <a href={`https://snowtrace.io/address/${wallet.address}`} target="_blank" rel="noopener noreferrer" className="p-2 text-gray-700 hover:text-gray-400 transition-colors" title="View on Snowtrace">
+                                            <ExternalLink className="w-3.5 h-3.5" />
+                                        </a>
+                                        <Link href={`/dao/signal/${wallet.address}`} className="p-2 text-gray-700 hover:text-red-400 transition-colors" title="View transactions">
+                                            <Eye className="w-3.5 h-3.5" />
+                                        </Link>
+                                        <button onClick={() => handleRemove(idx)} className="p-2 text-gray-700 hover:text-red-500 transition-colors" title="Remove">
+                                            <Trash2 className="w-3.5 h-3.5" />
+                                        </button>
                                     </div>
                                 </div>
 
-                                {/* Actions */}
-                                <div className="flex items-center gap-1 ml-4 shrink-0">
-                                    <button
-                                        onClick={() => handleCopy(wallet.address, idx)}
-                                        className="p-2 text-gray-700 hover:text-gray-400 transition-colors"
-                                        title="Copy address"
-                                    >
-                                        {copiedIdx === idx ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
-                                    </button>
-                                    <a
-                                        href={`https://snowtrace.io/address/${wallet.address}`}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="p-2 text-gray-700 hover:text-gray-400 transition-colors"
-                                        title="View on Snowtrace"
-                                    >
-                                        <ExternalLink className="w-3.5 h-3.5" />
-                                    </a>
-                                    <Link
-                                        href={`/dao/signal/${wallet.address}`}
-                                        className="p-2 text-gray-700 hover:text-red-400 transition-colors"
-                                        title="View transactions"
-                                    >
-                                        <Eye className="w-3.5 h-3.5" />
-                                    </Link>
-                                    <button
-                                        onClick={() => handleRemove(idx)}
-                                        className="p-2 text-gray-700 hover:text-red-500 transition-colors"
-                                        title="Remove"
-                                    >
-                                        <Trash2 className="w-3.5 h-3.5" />
-                                    </button>
+                                {/* Mobile layout — stacked */}
+                                <div className="flex sm:hidden flex-col gap-2">
+                                    <div className="flex items-center gap-3">
+                                        <div className="w-8 h-8 border border-red-500/[0.12] bg-[#111] flex items-center justify-center shrink-0">
+                                            <span className="text-[10px] font-bold text-red-400 font-mono">
+                                                {wallet.label.charAt(0).toUpperCase()}
+                                            </span>
+                                        </div>
+                                        <div className="min-w-0 flex-1">
+                                            <div className="flex items-center gap-2 mb-0.5">
+                                                <span className="text-sm text-white font-medium truncate">{wallet.label}</span>
+                                                <span className={`text-[9px] font-mono font-bold px-1.5 py-0.5 border shrink-0 ${TAG_COLORS[wallet.tag] || TAG_COLORS.Custom}`}>
+                                                    {wallet.tag}
+                                                </span>
+                                            </div>
+                                            <div className="text-[10px] text-gray-600 font-mono truncate">
+                                                {wallet.address}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center gap-1 border-t border-red-500/[0.04] pt-2 -mx-1">
+                                        <button onClick={() => handleCopy(wallet.address, idx)} className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-gray-600 hover:text-gray-400 transition-colors text-[9px] font-mono">
+                                            {copiedIdx === idx ? <Check className="w-3 h-3 text-green-400" /> : <Copy className="w-3 h-3" />}
+                                            {copiedIdx === idx ? 'COPIED' : 'COPY'}
+                                        </button>
+                                        <a href={`https://snowtrace.io/address/${wallet.address}`} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-gray-600 hover:text-gray-400 transition-colors text-[9px] font-mono">
+                                            <ExternalLink className="w-3 h-3" /> SCAN
+                                        </a>
+                                        <Link href={`/dao/signal/${wallet.address}`} className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-gray-600 hover:text-red-400 transition-colors text-[9px] font-mono">
+                                            <Eye className="w-3 h-3" /> VIEW
+                                        </Link>
+                                        <button onClick={() => handleRemove(idx)} className="flex-1 flex items-center justify-center gap-1.5 py-1.5 text-gray-600 hover:text-red-500 transition-colors text-[9px] font-mono">
+                                            <Trash2 className="w-3 h-3" /> DEL
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </motion.div>

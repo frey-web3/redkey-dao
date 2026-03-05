@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Newspaper, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Newspaper, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
 interface NewsArticle {
@@ -28,7 +28,6 @@ function timeAgo(ms: number): string {
 export default function AvaxNewsSection() {
     const [articles, setArticles] = useState<NewsArticle[]>([]);
     const [loading, setLoading] = useState(true);
-    const scrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const fetchNews = async () => {
@@ -46,88 +45,65 @@ export default function AvaxNewsSection() {
         fetchNews();
     }, []);
 
-    const scroll = (dir: 'left' | 'right') => {
-        if (!scrollRef.current) return;
-        const cardWidth = 320;
-        scrollRef.current.scrollBy({
-            left: dir === 'left' ? -cardWidth : cardWidth,
-            behavior: 'smooth',
-        });
-    };
-
     if (!loading && articles.length === 0) return null;
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-3">
-                <h2 className="text-xs font-mono text-white tracking-[0.15em] uppercase font-bold flex items-center gap-2">
-                    <Newspaper className="w-3.5 h-3.5 text-red-500" /> AVAX NEWS
+            <div className="flex items-center justify-between mb-4 border-b border-red-500/[0.08] pb-2">
+                <h2 className="text-xs text-white font-mono tracking-[0.15em] uppercase font-bold flex items-center gap-2">
+                    <Newspaper className="w-3.5 h-3.5 text-red-500" /> LATEST NEWS
                 </h2>
-                <div className="flex items-center gap-1">
-                    <button
-                        onClick={() => scroll('left')}
-                        className="p-1.5 text-gray-600 hover:text-red-400 transition-colors border border-red-500/[0.08] bg-[#0d0d0d] hover:bg-red-500/5"
-                    >
-                        <ChevronLeft className="w-3.5 h-3.5" />
-                    </button>
-                    <button
-                        onClick={() => scroll('right')}
-                        className="p-1.5 text-gray-600 hover:text-red-400 transition-colors border border-red-500/[0.08] bg-[#0d0d0d] hover:bg-red-500/5"
-                    >
-                        <ChevronRight className="w-3.5 h-3.5" />
-                    </button>
-                </div>
             </div>
 
-            <div
-                ref={scrollRef}
-                className="flex gap-3 overflow-x-auto scrollbar-hide pb-2 snap-x snap-mandatory"
-                style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
+            <div className="flex flex-col gap-3">
                 {loading
-                    ? [...Array(4)].map((_, i) => (
+                    ? [...Array(5)].map((_, i) => (
                         <div
                             key={i}
-                            className="min-w-[280px] lg:min-w-0 lg:w-[calc(25%-9px)] shrink-0 h-56 bg-[#0d0d0d] border border-red-500/[0.06] animate-pulse snap-start"
-                        />
+                            className="p-4 bg-[#0d0d0d] border border-red-500/[0.06] animate-pulse"
+                            style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)' }}
+                        >
+                            <div className="h-3 bg-[#1a1a1a] rounded w-3/4 mb-2" />
+                            <div className="h-2 bg-[#1a1a1a] rounded w-1/4" />
+                        </div>
                     ))
                     : articles.map((article, idx) => (
                         <Link
                             key={article.id}
                             href={`/dao/news/${article.id}`}
-                            className="min-w-[280px] lg:min-w-0 lg:w-[calc(25%-9px)] shrink-0 snap-start group"
+                            className="block group"
                         >
                             <motion.div
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.05 * idx }}
-                                className="bg-[#0d0d0d] border border-red-500/[0.06] hover:border-red-500/[0.15] transition-all h-full flex flex-col overflow-hidden"
+                                className="relative bg-[#0d0d0d] border border-red-500/[0.08] overflow-hidden transition-all hover:border-red-500/25"
+                                style={{ clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%)' }}
                             >
-                                {/* Image */}
-                                <div className="relative h-28 bg-[#111] overflow-hidden shrink-0">
-                                    {article.imageUrl && (
-                                        <img
-                                            src={article.imageUrl}
-                                            alt={article.title}
-                                            className="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-300"
-                                        />
-                                    )}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0d] to-transparent" />
-                                    <div className="absolute bottom-2 left-3 flex items-center gap-2">
-                                        <span className="text-[8px] text-red-400 font-mono font-bold px-1.5 py-0.5 bg-red-500/10 border border-red-500/20">
+                                {/* Top accent bar */}
+                                <div className="h-[1px] bg-gradient-to-r from-red-600/40 via-red-500/20 to-transparent" />
+
+                                <div className="p-4">
+                                    <div className="flex justify-between items-start gap-4">
+                                        <h3 className="text-sm font-medium text-white leading-snug group-hover:text-red-400 transition-colors">
+                                            {article.title}
+                                        </h3>
+                                        <ExternalLink className="w-3.5 h-3.5 text-gray-500 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    </div>
+                                    <div className="flex items-center gap-3 mt-3 text-xs">
+                                        <span className="text-[9px] text-red-400 font-mono font-bold px-1.5 py-0.5 bg-red-500/10 border border-red-500/20">
                                             {article.source}
                                         </span>
-                                        <span className="text-[8px] text-gray-500 font-mono">
+                                        <span className="text-[10px] text-gray-500 font-mono">
                                             {timeAgo(article.publishedAt)}
                                         </span>
                                     </div>
                                 </div>
 
-                                {/* Content */}
-                                <div className="p-3 flex-1 flex flex-col">
-                                    <h3 className="text-[11px] text-white font-medium leading-snug line-clamp-2 group-hover:text-red-300 transition-colors">
-                                        {article.title}
-                                    </h3>
+                                {/* Corner cut accent */}
+                                <div className="absolute top-0 right-0 w-3 h-3">
+                                    <div className="absolute top-[1px] right-[12px] w-[1px] h-2 bg-red-500/30" />
+                                    <div className="absolute top-[12px] right-[1px] w-2 h-[1px] bg-red-500/30" />
                                 </div>
                             </motion.div>
                         </Link>

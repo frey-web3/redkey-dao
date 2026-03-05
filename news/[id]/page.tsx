@@ -49,10 +49,10 @@ export default function NewsDetailPage() {
 
             <DaoNavbar />
 
-            <main className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 py-8">
+            <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-8">
                 <Link
                     href="/dao/dashboard"
-                    className="inline-flex items-center gap-2 text-gray-600 hover:text-red-400 transition-colors text-xs font-mono tracking-wider uppercase mb-6"
+                    className="inline-flex items-center gap-2 text-gray-600 hover:text-red-400 transition-colors text-[10px] font-mono tracking-wider uppercase mb-6"
                 >
                     <ArrowLeft className="w-3.5 h-3.5" /> BACK TO DASHBOARD
                 </Link>
@@ -72,54 +72,46 @@ export default function NewsDetailPage() {
 
                 {!loading && article && (
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                        {/* Image */}
-                        {article.imageUrl && (
-                            <div className="relative w-full h-48 sm:h-64 bg-[#111] overflow-hidden border border-red-500/[0.08] mb-6">
-                                <img
-                                    src={article.imageUrl}
-                                    alt={article.title}
-                                    className="w-full h-full object-cover"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-[#060608] via-transparent to-transparent" />
+                        <div className="bg-[#0d0d0d] border border-red-500/[0.08] overflow-hidden">
+                            <div className="h-[1px] bg-gradient-to-r from-red-600/40 via-red-500/20 to-transparent" />
+                            <div className="p-6 md:p-8">
+                                {/* Meta */}
+                                <div className="flex items-center gap-3 mb-4">
+                                    <span className="text-[9px] text-red-400 font-mono font-bold px-2 py-1 bg-red-500/10 border border-red-500/20 tracking-[0.1em] uppercase">
+                                        {article.source}
+                                    </span>
+                                    <span className="text-[10px] text-gray-600 font-mono">
+                                        {new Date(article.publishedAt).toLocaleDateString('en-US', {
+                                            month: 'long',
+                                            day: 'numeric',
+                                            year: 'numeric',
+                                        })}
+                                    </span>
+                                </div>
+
+                                {/* Title */}
+                                <h1 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-8">
+                                    {article.title}
+                                </h1>
+
+                                {/* Body */}
+                                <div className="text-sm text-gray-300 leading-relaxed font-mono whitespace-pre-wrap mb-10">
+                                    {article.body || 'No content provided by the source feed.'}
+                                </div>
+
+                                {/* Source Link */}
+                                <div className="border-t border-red-500/[0.06] pt-6">
+                                    <a
+                                        href={article.url}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-5 py-3 border border-red-500/30 bg-red-500/[0.06] text-red-400 font-mono text-xs font-bold tracking-wider uppercase hover:bg-red-500/15 active:scale-[0.98] transition-all cursor-pointer"
+                                    >
+                                        <ExternalLink className="w-3.5 h-3.5" /> READ ORIGINAL ARTICLE
+                                    </a>
+                                </div>
                             </div>
-                        )}
-
-                        {/* Meta */}
-                        <div className="flex items-center gap-3 mb-4">
-                            <span className="text-[9px] text-red-400 font-mono font-bold px-2 py-1 bg-red-500/10 border border-red-500/20">
-                                {article.source}
-                            </span>
-                            <span className="text-[10px] text-gray-600 font-mono">
-                                {new Date(article.publishedAt).toLocaleDateString('en-US', {
-                                    month: 'long',
-                                    day: 'numeric',
-                                    year: 'numeric',
-                                })}
-                            </span>
                         </div>
-
-                        {/* Title */}
-                        <h1 className="text-xl sm:text-2xl font-bold text-white leading-tight mb-6">
-                            {article.title}
-                        </h1>
-
-                        {/* Highlight / Body */}
-                        <div className="bg-[#0d0d0d] border border-red-500/[0.08] p-5 mb-6">
-                            <div className="text-[10px] text-red-500/60 font-mono tracking-[0.2em] uppercase mb-3">HIGHLIGHTS</div>
-                            <p className="text-sm text-gray-300 leading-relaxed font-mono">
-                                {article.body}
-                            </p>
-                        </div>
-
-                        {/* Source Link */}
-                        <a
-                            href={article.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-5 py-3 border border-red-500/30 bg-red-500/[0.06] text-red-400 font-mono text-xs font-bold tracking-wider uppercase hover:bg-red-500/15 active:scale-[0.98] transition-all"
-                        >
-                            <ExternalLink className="w-3.5 h-3.5" /> READ FULL ARTICLE
-                        </a>
                     </motion.div>
                 )}
             </main>

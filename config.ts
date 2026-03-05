@@ -93,6 +93,7 @@ export const NAV_ITEMS = [
     { label: 'Treasury', href: '/dao/treasury', icon: 'Vault' },
     { label: 'Proposals', href: '/dao/proposals', icon: 'ScrollText' },
     { label: 'Loans', href: '/dao/loans', icon: 'Landmark' },
+    { label: 'Portfolio', href: '/dao/portfolio', icon: 'Briefcase' },
     { label: 'Signal', href: '/dao/signal', icon: 'Radar' },
 ] as const;
 

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useActiveAccount } from 'thirdweb/react';
-import { Plus, ArrowRight, Users, ScrollText, Vault, Activity, Zap, Terminal, Landmark } from 'lucide-react';
+import { Plus, ArrowRight, Users, ScrollText, Vault, Activity, Zap, Terminal, Landmark, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import DaoNavbar from '../components/DaoNavbar';
 import TreasuryCard from '../components/TreasuryCard';
@@ -12,6 +12,7 @@ import LoanCard from '../components/LoanCard';
 import AvaxPriceCard from '../components/AvaxPriceCard';
 import AvaxNewsSection from '../components/AvaxNewsSection';
 import { seedIfNeeded, getTreasury, getProposals, getMembers, getLoans, getActivity } from '@/lib/local-dao-store';
+import { mockProjects } from '../portfolio/mockData';
 import type { TreasurySummary, Proposal, DaoMember, LoanRequest, AuditLogEntry } from '../types';
 
 const ACTIVITY_ICONS: Record<string, { icon: React.ElementType; color: string }> = {
@@ -168,13 +169,41 @@ export default function DaoDashboard() {
                             </div>
                         </motion.div>
 
+                        {/* Funded Projects Highlight */}
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }} className="bg-[#0d0d0d] border border-red-500/[0.08] p-5">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="text-[10px] text-white font-mono tracking-[0.15em] uppercase font-bold flex items-center gap-2">
+                                    <Briefcase className="w-3.5 h-3.5 text-red-500" /> FUNDED PROJECTS
+                                </h3>
+                                <Link href="/dao/portfolio" className="text-[9px] text-red-500/60 hover:text-red-400 font-mono tracking-wider uppercase transition-colors">ALL →</Link>
+                            </div>
+                            <div className="space-y-3">
+                                {mockProjects.filter(p => p.status === 'Funded' || p.status === 'Active').slice(0, 3).map((project) => (
+                                    <Link key={project.id} href={`/dao/portfolio/${project.id}`} className="flex items-center gap-3 py-2 group">
+                                        <div className="w-8 h-8 bg-[#111] border border-red-500/[0.12] flex items-center justify-center shrink-0 group-hover:border-red-500/40 transition-colors">
+                                            {project.logoUrl ? (
+                                                <img src={project.logoUrl} alt={project.name} className="max-w-full max-h-full object-contain p-1" />
+                                            ) : (
+                                                <Briefcase className="w-3.5 h-3.5 text-red-500/50" />
+                                            )}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="text-xs text-white font-medium truncate group-hover:text-red-400 transition-colors">{project.name}</div>
+                                            <div className="text-[9px] text-gray-500 font-mono uppercase truncate">{project.category}</div>
+                                        </div>
+                                        <ArrowRight className="w-3.5 h-3.5 text-gray-600 group-hover:text-red-400 transition-colors" />
+                                    </Link>
+                                ))}
+                            </div>
+                        </motion.div>
+
                         {/* Top Members */}
                         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }} className="bg-[#0d0d0d] border border-red-500/[0.08] p-5">
                             <div className="flex items-center justify-between mb-4">
                                 <h3 className="text-[10px] text-white font-mono tracking-[0.15em] uppercase font-bold flex items-center gap-2"><Users className="w-3.5 h-3.5 text-red-500" /> TOP MEMBERS</h3>
                                 <Link href="/dao/members" className="text-[9px] text-red-500/60 hover:text-red-400 font-mono tracking-wider uppercase transition-colors">ALL →</Link>
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-3">
                                 {members.slice(0, 3).map((m, i) => (
                                     <div key={m.walletAddress} className="flex items-center gap-3 py-2">
                                         <div className="text-[10px] font-mono text-gray-700 font-bold w-4">{String(i + 1).padStart(2, '0')}</div>

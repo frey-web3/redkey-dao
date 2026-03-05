@@ -93,6 +93,16 @@ export default function LitepaperPage() {
                                     A native lending market allows verified profiles to request loans against 100% token collateral (calculated at real-time USD value). Instead of a blind pool, lenders can view the profile, purpose, and term duration, funding fractional amounts of the loan to earn fixed interest upon repayment.
                                 </p>
                             </div>
+
+                            <div className="md:col-span-2 pt-4 border-t border-red-500/[0.08]">
+                                <h3 className="text-white font-bold font-mono tracking-wider uppercase mb-3 flex items-center gap-3">
+                                    <Network className="w-5 h-5 text-red-500" />
+                                    Accountability & Intelligence
+                                </h3>
+                                <p className="text-xs text-gray-400 font-mono leading-relaxed">
+                                    A DAO is only as strong as its intelligence and accountability. RedKey natively integrates <strong>Signal</strong>, an on-chain analytics dashboard referencing real-time transaction data via Alchemy, empowering members with due-diligence before they vote. Post-funding, the <strong>Portfolio</strong> layer provides total transparency, tracking milestone achievements and ROI for all deployed capital to ensure teams remain accountable to the community.
+                                </p>
+                            </div>
                         </div>
                     </motion.section>
 
@@ -167,7 +177,7 @@ export default function LitepaperPage() {
                         <p className="font-mono text-[10px] text-gray-600 mt-4 uppercase tracking-[0.2em]">End of Document</p>
                     </motion.div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     );
 }

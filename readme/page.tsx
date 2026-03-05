@@ -99,6 +99,8 @@ export default function ReadmePage() {
                             <li><strong className="text-white font-mono uppercase tracking-wider">/dao/loans</strong> - The P2P DeFi lending market. Users can browse active collateralized loan requests, or submit their own requests based on their tier.</li>
                             <li><strong className="text-white font-mono uppercase tracking-wider">/dao/members</strong> - A social explorer acting as a directory of DAO participants, showcasing their accumulated power and historical contribution.</li>
                             <li><strong className="text-white font-mono uppercase tracking-wider">/dao/discussion</strong> - A lightweight discussion space where members open topics, discuss risk assumptions, and coordinate around proposals before anything moves on-chain.</li>
+                            <li><strong className="text-white font-mono uppercase tracking-wider">/dao/signal</strong> - The on-chain analytics module utilizing the Alchemy API to fetch and render raw transaction histories from significant market entities inside a custom explorer UI.</li>
+                            <li><strong className="text-white font-mono uppercase tracking-wider">/dao/portfolio</strong> - The treasury accountability tracker that fetches and displays real-time and structural metrics of projects previously funded by the DAO's governance mechanism.</li>
                         </ul>
                     </motion.div>
 

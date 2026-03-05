@@ -36,6 +36,12 @@ Community-driven investment governance:
 - Proposal lifecycle tracking (Draft → Submitted → Voting → Passed/Failed → Executing → Completed)
 - Comment and discussion threads per proposal
 
+### 💼 Portfolio
+Post-funding transparency and performance tracking:
+- Track deployed capital and actual performance of funded projects
+- Detailed metrics including ROI, stage, and ecosystem impact
+- Verifiable links to project smart contracts and social spaces
+
 ### 💰 Loans (P2P Lending)
 A peer-to-peer liquidity market:
 - Request loans with flexible tenors (3, 6, or 9 months)
@@ -113,6 +119,7 @@ dao/
 ├── members/                   # Member directory
 ├── news/                      # News page
 ├── pitch/                     # Pitch deck
+├── portfolio/                 # Post-funding portfolio tracking
 ├── profile/                   # User profile
 ├── proposals/                 # Investment proposals
 ├── signal/                    # Smart money tracker
@@ -147,6 +154,7 @@ dao/
 RedKey DAO supports multiple wallet connection methods:
 
 - **In-App Wallet** — Sign in with Google, Apple, or X (Twitter)
+- **Core**
 - **MetaMask**
 - **Coinbase Wallet**
 - **WalletConnect**

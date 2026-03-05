@@ -196,6 +196,14 @@ export default function DocsPage() {
                                     <h3 className="text-lg font-bold text-white mb-1 tracking-wider uppercase">Discussion <span className="text-red-500 text-sm italic normal-case font-mono">/dao/discussion</span></h3>
                                     <p className="text-sm text-gray-400 leading-relaxed">The asynchronous discussion board. Members open topics, debate proposals, and align on strategy before casting on-chain votes. It is the home for long-form governance conversations ahead of future real-time chat.</p>
                                 </div>
+                                <div className="border-l-2 border-red-500 pl-4">
+                                    <h3 className="text-lg font-bold text-white mb-1 tracking-wider uppercase">Signal <span className="text-red-500 text-sm italic normal-case font-mono">/dao/signal</span></h3>
+                                    <p className="text-sm text-gray-400 leading-relaxed">Our native smart-money tracker powered by Alchemy. Monitor whale wallets and active entity transactions across the Avalanche ecosystem. Extremely useful for conducting due-diligence before proposing an investment.</p>
+                                </div>
+                                <div className="border-l-2 border-red-500 pl-4">
+                                    <h3 className="text-lg font-bold text-white mb-1 tracking-wider uppercase">Portfolio <span className="text-red-500 text-sm italic normal-case font-mono">/dao/portfolio</span></h3>
+                                    <p className="text-sm text-gray-400 leading-relaxed">The post-funding accountability layer. Track the performance, milestones, and real-time ROI of projects that successfully passed community governance and received treasury allocations.</p>
+                                </div>
                             </div>
                         </div>
                     </motion.section>

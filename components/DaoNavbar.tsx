@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LayoutDashboard, Vault, ScrollText, Users, Menu, X, Landmark, UserCircle, MessagesSquare, Key, Radar, ChevronDown } from 'lucide-react';
+import { LayoutDashboard, Vault, ScrollText, Users, Menu, X, Landmark, UserCircle, MessagesSquare, Key, Radar, ChevronDown, Briefcase } from 'lucide-react';
 import { ConnectButton } from 'thirdweb/react';
 import { avalanche } from 'thirdweb/chains';
 import { thirdwebClient } from '@/lib/thirdweb';
@@ -15,6 +15,7 @@ const iconMap: Record<string, React.ElementType> = {
     Vault,
     ScrollText,
     Landmark,
+    Briefcase,
     Users,
     MessagesSquare,
     Radar,

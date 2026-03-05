@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     title: 'RedKey DAO — Community Investment & Lending',
     description: 'Decentralized investment and lending protocol governed by community consensus.',
     icons: {
-        icon: '/favicon.ico',
+        icon: '/images/redkey-icon-192.png',
     },
     manifest: '/dao-manifest.json',
     openGraph: {
