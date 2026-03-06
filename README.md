@@ -27,6 +27,9 @@ Full transparency into DAO finances with:
 - Contribution tracking per member
 - Reserve ratio monitoring
 - Transaction history (deposits, withdrawals, allocations, returns)
+- **Onchain contributions** — Send USDC, USDT, or AVAX directly to the treasury wallet on Avalanche C-Chain
+- **Onchain transaction log** — Real-time transaction feed fetched via Alchemy API
+- **Onchain Treasury page** (`/dao/treasury/onchain`) — Dedicated page showing individual AVAX, USDC, USDT balances with USD equivalents (AVAX price via CoinGecko), combined USD total, onchain contribute form, and full transaction explorer
 
 ### 📜 Proposals
 Community-driven investment governance:
