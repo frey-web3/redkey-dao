@@ -5,19 +5,25 @@ import { motion } from 'framer-motion';
 import { Wallet, ArrowUpRight, Shield, DollarSign } from 'lucide-react';
 import type { TreasurySummary } from '../types';
 
+import Link from 'next/link';
+
 interface Props {
     treasury: TreasurySummary | null;
     loading?: boolean;
+    onchainUsdBalance?: number;
 }
 
+type CardData = { value?: number; isLink?: boolean; href?: string; };
+
 const cards = [
-    { key: 'total', label: 'TOTAL ASSETS', icon: Wallet, accessor: (t: TreasurySummary) => t.totalBalance },
-    { key: 'available', label: 'AVAILABLE', icon: DollarSign, accessor: (t: TreasurySummary) => t.availableFunds },
-    { key: 'allocated', label: 'ALLOCATED', icon: Shield, accessor: (t: TreasurySummary) => t.allocatedFunds },
-    { key: 'returns', label: 'RETURNS', icon: ArrowUpRight, accessor: (t: TreasurySummary) => t.totalReturns },
+    { key: 'total', label: 'TOTAL ASSETS', icon: Wallet, accessor: (t: TreasurySummary): CardData => ({ value: t.totalBalance }) },
+    { key: 'onchain', label: 'ONCHAIN FUNDS', icon: Shield, accessor: (t: TreasurySummary, usd: number): CardData => ({ value: usd, isLink: true, href: '/dao/treasury/onchain' }) },
+    { key: 'available', label: 'AVAILABLE', icon: DollarSign, accessor: (t: TreasurySummary): CardData => ({ value: t.availableFunds }) },
+    { key: 'allocated', label: 'ALLOCATED', icon: Shield, accessor: (t: TreasurySummary): CardData => ({ value: t.allocatedFunds }) },
+    { key: 'returns', label: 'RETURNS', icon: ArrowUpRight, accessor: (t: TreasurySummary): CardData => ({ value: t.totalReturns }) },
 ];
 
-export default function TreasuryCard({ treasury, loading }: Props) {
+export default function TreasuryCard({ treasury, loading, onchainUsdBalance = 0 }: Props) {
     if (loading || !treasury) {
         return (
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
@@ -29,11 +35,12 @@ export default function TreasuryCard({ treasury, loading }: Props) {
     }
 
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-3">
             {cards.map((card, index) => {
                 const Icon = card.icon;
-                const value = card.accessor(treasury);
-                return (
+                const data = card.accessor(treasury, onchainUsdBalance);
+
+                const cardContent = (
                     <motion.div
                         key={card.key}
                         initial={{ opacity: 0, y: 20 }}
@@ -63,12 +70,22 @@ export default function TreasuryCard({ treasury, loading }: Props) {
                                     <span className="text-[10px] text-gray-600 font-mono tracking-[0.2em] uppercase">{card.label}</span>
                                 </div>
                                 <div className="text-xl font-bold text-white font-mono tracking-tight">
-                                    ${value.toLocaleString('en-US', { minimumFractionDigits: 0 })}
+                                    ${data.value?.toLocaleString('en-US', { minimumFractionDigits: 0 })}
                                 </div>
                             </div>
                         </div>
                     </motion.div>
                 );
+
+                if (data.isLink && data.href) {
+                    return (
+                        <Link href={data.href} key={card.key}>
+                            {cardContent}
+                        </Link>
+                    );
+                }
+
+                return cardContent;
             })}
         </div>
     );

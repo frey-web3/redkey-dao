@@ -3,6 +3,10 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useActiveAccount } from 'thirdweb/react';
+import { getContract } from "thirdweb";
+import { useReadContract, useWalletBalance } from "thirdweb/react";
+import { avalanche } from "thirdweb/chains";
+import { thirdwebClient } from "@/lib/thirdweb";
 import { Plus, ArrowRight, Users, ScrollText, Vault, Activity, Zap, Terminal, Landmark, Briefcase } from 'lucide-react';
 import Link from 'next/link';
 import DaoNavbar from '../components/DaoNavbar';
@@ -59,6 +63,24 @@ export default function DaoDashboard() {
     const [members, setMembers] = useState<DaoMember[]>([]);
     const [loans, setLoans] = useState<LoanRequest[]>([]);
     const [activity, setActivity] = useState<AuditLogEntry[]>([]);
+    const [avaxPrice, setAvaxPrice] = useState<number>(0);
+
+    const TREASURY_ADDRESS = "0xF2ff40197C882d83c3A22f6A0b2655875eC103a3";
+    const USDC_ADDRESS = "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E";
+    const USDT_ADDRESS = "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7";
+
+    const usdcContract = getContract({ client: thirdwebClient, chain: avalanche, address: USDC_ADDRESS });
+    const usdtContract = getContract({ client: thirdwebClient, chain: avalanche, address: USDT_ADDRESS });
+
+    const { data: avaxTreasuryBalanceData } = useWalletBalance({ client: thirdwebClient, chain: avalanche, address: TREASURY_ADDRESS });
+    const { data: treasuryUsdcBalanceData } = useReadContract({ contract: usdcContract, method: "function balanceOf(address account) view returns (uint256)", params: [TREASURY_ADDRESS] });
+    const { data: treasuryUsdtBalanceData } = useReadContract({ contract: usdtContract, method: "function balanceOf(address account) view returns (uint256)", params: [TREASURY_ADDRESS] });
+
+    const parsedTreasuryUsdcBalance = treasuryUsdcBalanceData ? Number(treasuryUsdcBalanceData) / 1e6 : 0;
+    const parsedTreasuryUsdtBalance = treasuryUsdtBalanceData ? Number(treasuryUsdtBalanceData) / 1e6 : 0;
+    const parsedTreasuryAvaxBalance = avaxTreasuryBalanceData ? Number(avaxTreasuryBalanceData.displayValue) : 0;
+
+    const onchainUsdBalance = parsedTreasuryUsdcBalance + parsedTreasuryUsdtBalance + (parsedTreasuryAvaxBalance * avaxPrice);
 
     useEffect(() => {
         seedIfNeeded();
@@ -68,6 +90,12 @@ export default function DaoDashboard() {
         setLoans(getLoans());
         setActivity(getActivity(10));
         setLoading(false);
+
+        // Fetch AVAX price
+        fetch('https://api.coingecko.com/api/v3/simple/price?ids=avalanche-2&vs_currencies=usd')
+            .then(res => res.json())
+            .then(data => setAvaxPrice(data['avalanche-2'].usd))
+            .catch(console.error);
     }, []);
 
     const activeProposals = proposals.filter(p => p.status === 'active');
@@ -103,7 +131,7 @@ export default function DaoDashboard() {
                     </div>
                 </motion.div>
 
-                <div className="mb-8"><TreasuryCard treasury={loading ? null : treasury} loading={loading} /></div>
+                <div className="mb-8"><TreasuryCard treasury={loading ? null : treasury} loading={loading} onchainUsdBalance={onchainUsdBalance} /></div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
                     <div className="lg:col-span-2 space-y-5">
