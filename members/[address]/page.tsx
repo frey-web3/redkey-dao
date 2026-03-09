@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, Star, Vote, ScrollText, DollarSign, Calendar, TrendingUp, Clock } from 'lucide-react';
 import Link from 'next/link';
 import DaoNavbar from '../../components/DaoNavbar';
+import ReputationPartnerSection, { getPartnerReputationScore } from '../../components/ReputationPartnerSection';
 import { ROLE_CONFIG, CREDIT_TIERS } from '../../config';
 import { seedIfNeeded, getMember } from '@/lib/local-dao-store';
 import type { DaoMember } from '../../types';
@@ -81,6 +82,7 @@ export default function MemberProfilePage({ params }: { params: Promise<{ addres
                             { label: 'PROPOSAL QUALITY', value: Math.min(100, member.proposalsSubmitted * 20), color: '#3b82f6' },
                             { label: 'TREASURY CONTRIBUTION', value: Math.min(100, Math.round(member.totalContribution / 250)), color: '#22c55e' },
                             { label: 'COMMUNITY ENGAGEMENT', value: Math.min(100, Math.round(member.reputation / 10)), color: '#f59e0b' },
+                            { label: 'PARTNER REPUTATION', value: getPartnerReputationScore(member.walletAddress), color: '#a855f7' },
                         ].map(metric => (
                             <div key={metric.label}>
                                 <div className="flex justify-between mb-1.5">
@@ -94,6 +96,9 @@ export default function MemberProfilePage({ params }: { params: Promise<{ addres
                         ))}
                     </div>
                 </motion.div>
+
+                {/* Reputation Partners — Read-only */}
+                <ReputationPartnerSection walletAddress={member.walletAddress} isOwnProfile={false} />
             </main>
         </div>
     );

@@ -22,7 +22,7 @@ export default function MemberCard({ member, index = 0, rank }: Props) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.06 }}
         >
-            <Link href={`/dao/members/${member.walletAddress}`} className="block group">
+            <Link href={`/dao/profile/${member.walletAddress}`} className="block group">
                 <div className="relative bg-[#0d0d0d] border border-red-500/[0.06] overflow-hidden transition-all hover:border-red-500/20">
                     {/* Left accent */}
                     <div className="absolute left-0 top-0 bottom-0 w-[2px]" style={{ backgroundColor: `${roleCfg.color}40` }} />

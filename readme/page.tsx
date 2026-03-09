@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Terminal, Database, Code, ShieldCheck, Network } from 'lucide-react';
-import DaoNavbar from '../components/DaoNavbar';
+
 
 export default function ReadmePage() {
     return (
@@ -13,7 +13,7 @@ export default function ReadmePage() {
                 <div className="absolute inset-0 bg-[linear-gradient(rgba(239,68,68,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(239,68,68,0.02)_1px,transparent_1px)] bg-[size:60px_60px]" />
             </div>
 
-            <DaoNavbar />
+
 
             <main className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 py-12 md:py-20">
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-12">

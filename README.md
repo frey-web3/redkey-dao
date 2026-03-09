@@ -21,15 +21,13 @@ A command-center style dashboard providing real-time overview of:
 - AVAX price tracking with live market data
 - Latest Avalanche ecosystem news feed
 
-### 🏦 Treasury
-Full transparency into DAO finances with:
-- Total balance, allocated funds, and available funds
-- Contribution tracking per member
-- Reserve ratio monitoring
-- Transaction history (deposits, withdrawals, allocations, returns)
-- **Onchain contributions** — Send USDC, USDT, or AVAX directly to the treasury wallet on Avalanche C-Chain
-- **Onchain transaction log** — Real-time transaction feed fetched via Alchemy API
-- **Onchain Treasury page** (`/dao/treasury/onchain`) — Dedicated page showing individual AVAX, USDC, USDT balances with USD equivalents (AVAX price via CoinGecko), combined USD total, onchain contribute form, and full transaction explorer
+### 🏦 Treasury & Onchain Execution
+Full transparency into DAO finances with live Avalanche C-Chain integration:
+- 🚀 **LIVE SHOWCASE: Onchain Contributions** — Connect your wallet and send actual USDC, USDT, or AVAX directly to the RedKey DAO treasury smart contract on the Avalanche network.
+- 🚀 **LIVE SHOWCASE: Onchain Transaction Log** — Real-time verification of on-chain treasury movements fetched directly from the blockchain via Alchemy API.
+- **Onchain Treasury Dashboard** (`/dao/treasury/onchain`) — A dedicated command center displaying individual AVAX, USDC, and USDT balances with live USD equivalents (AVAX price via CoinGecko).
+- Comprehensive fund overview: Total balance, allocated funds, and available funds.
+- Contribution tracking per member and reserve ratio monitoring.
 
 ### 📜 Proposals
 Community-driven investment governance:
@@ -59,13 +57,14 @@ Smart money tracking on the Avalanche network:
 - View the latest 100 transactions per address via Alchemy API
 - Analyze on-chain activity patterns
 
-### 👥 Members
-Member directory with:
-- Role-based access (Super Admin, Admin, Member, Observer)
-- Reputation scoring system (0–1000)
-- Voting power calculation (60% stake weight + 40% reputation weight)
-- Credit tier tracking
-- Profile pages with social links
+### 👥 Identity & Reputation System
+Comprehensive member directory and progression system:
+- **Public Profiles** (`/dao/profile/[address]`) — Searchable public member profiles displaying identity metrics, customizable bio, social links, and a visual Reputation Matrix.
+- **Private Profiles** (`/dao/profile`) — Personal command center with inline editing allowing members to manage their DAO identity.
+- **Partner Reputation Integration** — Members can claim reputation badges based on their activity in other Avalanche ecosystem dApps (e.g., Blackhole protocol). Claimed badges directly calculate into an aggregated "Partner Reputation" score displayed on the profile matrix.
+- Role-based access (Super Admin, Admin, Member, Observer).
+- Voting power calculation (60% stake weight + 40% reputation weight).
+- Credit tier tracking for P2P lending eligibility.
 
 ### 💬 Discussion
 Community forum for open dialogue:

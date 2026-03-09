@@ -25,6 +25,7 @@ export default function DaoFooter() {
                         <Link href="/dao/readme" className="text-gray-500 hover:text-red-400 transition-colors">Technical README</Link>
                         <Link href="/dao/litepaper" className="text-gray-500 hover:text-red-400 transition-colors">Litepaper</Link>
                         <Link href="/dao/pitch" className="text-gray-500 hover:text-red-400 transition-colors">MVP Pitch</Link>
+                        <Link href="/dao/presentation" className="text-gray-500 hover:text-red-400 transition-colors font-bold text-gray-400">Presentation Deck</Link>
                     </div>
 
                     <div className="text-[10px] text-gray-600 font-mono tracking-wider">
